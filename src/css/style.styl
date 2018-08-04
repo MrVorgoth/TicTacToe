@@ -1,0 +1,47 @@
+$fill-color = white;
+
+body {
+  margin: 0;
+  padding: 0;
+  color: $fill-color;
+  background-color: #444;
+  font-family: 'Arial', sans-serif;
+}
+
+#react-root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.field {
+  margin: 10px;
+  padding: 10px;
+  min-width: 14px;
+  min-height: 21px;
+  color: black;
+  background-color: $fill-color;
+  display: inline-block;
+}
+
+.player-container {
+  text-align: center;
+}
+
+.player-container__turn {
+  font-size: 22px;
+  padding-bottom: 10px;
+}
+
+.player-container__mark-x,
+.player-container__mark-y {
+  padding: 0 10px;
+}
+
+.player-container__mark-x {
+  color: #E2405E;
+}
+
+.player-container__mark-y {
+  color: #3A80D6;
+}
