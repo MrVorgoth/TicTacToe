@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateGameTurn, updateGameState, updateGamePoints } from '../../../redux/actions';
+import { updateGameTurn, updateGameState, updateGamePoints } from '../actions';
+import { X, O } from '../constants';
 
 class GameField extends Component {
   constructor(props) {
@@ -18,12 +19,25 @@ class GameField extends Component {
     gameState[this.props.boxNumber - 1] = this.props.gameTurn;
     this.props.updateGameState(gameState);
 
-    (this.props.gameTurn == 'X')
-      ? this.props.updateGameTurn('O')
-      : this.props.updateGameTurn('X');
+    (this.props.gameTurn == X)
+      ? this.props.updateGameTurn(O)
+      : this.props.updateGameTurn(X);
 
-    this.checkForWinner('X');
-    this.checkForWinner('O');
+    this.checkForWinner(X);
+    this.checkForWinner(O);
+    this.resetIfBoardFull();
+  }
+
+  resetIfBoardFull() {
+    let emptyField = _.findIndex(this.props.gameState, function(element) {
+      return element == '';
+    });
+    if (emptyField == -1) {
+      let gamePoints = [...this.props.gamePoints];
+        this.props.updateGamePoints(gamePoints);
+        this.props.updateGameState(['', '', '', '', '', '', '', '', '']);
+        this.props.updateGameTurn(X);
+    }
   }
 
   checkForWinner(playerMark) {
@@ -35,12 +49,12 @@ class GameField extends Component {
       || this.props.gameState[2] == playerMark && this.props.gameState[5] == playerMark && this.props.gameState[8] == playerMark
       || this.props.gameState[0] == playerMark && this.props.gameState[4] == playerMark && this.props.gameState[8] == playerMark
       || this.props.gameState[2] == playerMark && this.props.gameState[4] == playerMark && this.props.gameState[6] == playerMark) {
-        let index = (playerMark == 'X') ? 0 : 1;
+        let index = (playerMark == X) ? 0 : 1;
         let gamePoints = [...this.props.gamePoints];
         gamePoints[index] += 1;
         this.props.updateGamePoints(gamePoints);
         this.props.updateGameState(['', '', '', '', '', '', '', '', '']);
-        this.props.updateGameTurn('X');
+        this.props.updateGameTurn(X);
       }
   }
 

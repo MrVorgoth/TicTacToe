@@ -12,7 +12,7 @@ class GameBoard extends Component {
     let count = 0;
     let board = _.times(3, () => {
       return(
-        <tr>
+        <tr key={count}>
           {_.times(3, () => {
             count++;
             return <GameField key={count} boxNumber={count} />;

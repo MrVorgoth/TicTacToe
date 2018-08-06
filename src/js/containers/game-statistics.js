@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateGameTurn, updateGameState } from '../../../redux/actions';
+import { updateGameTurn, updateGameState } from '../actions';
+import { X, O } from '../constants';
 
 class GameStatistics extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class GameStatistics extends Component {
   }
 
   render() {
-    (this.props.gameTurn == 'X')
+    (this.props.gameTurn == X)
       ? this.playerClass = 'player-container__mark-x'
       : this.playerClass = 'player-container__mark-y';
     return (
